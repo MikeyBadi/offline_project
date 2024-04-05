@@ -12,7 +12,7 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" Component={Homepage} />
-            <Route path="/detail/:id" Component={Detail} />
+            <Route path="/detail/:slug" Component={Detail} />
           </Routes>
         </Layout>
       </BrowserRouter>
