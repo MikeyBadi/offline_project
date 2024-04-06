@@ -1,6 +1,7 @@
 // import './App.css';
 import Homepage from './pages/Homepage'
 import Detail from './pages/Detail'
+import Favorites from './pages/FavoritesImages'
 import Layout from './layouts/Layout';
 import './App.css'
 import 'flowbite';
@@ -14,6 +15,7 @@ function App() {
           <Routes>
             <Route path="/" Component={Homepage} />
             <Route path="/detail/:slug" Component={Detail} />
+            <Route path="/favorites/" Component={Favorites} />
           </Routes>
         </Layout>
       </BrowserRouter>
