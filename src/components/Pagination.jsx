@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-export default function Pagination({ currentPage, totalPages, onPageChange }) {
+export default function Pagination({ currentPage, totalPages, onPageChange, searchQuery }) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -16,9 +16,9 @@ export default function Pagination({ currentPage, totalPages, onPageChange }) {
   const handleClick = (pageNumber) => {
     if (pageNumber >= 1 && pageNumber <= totalPages) {
       onPageChange(pageNumber);
-      navigate(`?page=${pageNumber}`);
+      navigate(`?page=${pageNumber}&search=${searchQuery}`);
     }
-  };
+    }
 
   const renderPaginationItems = () => {
     const maxVisiblePages = 5;
@@ -49,7 +49,6 @@ export default function Pagination({ currentPage, totalPages, onPageChange }) {
       </li>
     ));
   };
-
   return (
     <nav aria-label="Page navigation example">
       <ul className="flex items-center -space-x-px h-8 text-sm">
