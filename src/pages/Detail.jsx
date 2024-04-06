@@ -4,21 +4,17 @@ import Card from "../components/ImageCard";
 export default function Detail() {
     const navigate = useNavigate();
     const location = useLocation();
-    const {image} = location.state; // Accedi all'oggetto immagine dalla prop state
-    const {id, slug} = useParams()
-    console.log(id, slug);
+    const {image} = location.state;
+    // const {id, slug} = useParams()
+    // console.log(id, slug);
+		const imageUrl = window.matchMedia("(max-width: 768px)").matches ? image.urls.small : image.urls.raw;
+		const className = window.matchMedia("(max-width: 768px)").matches ? "w-screen" : "h-screen";
     function imageDetail() {
         return(
             <>
-            {/* <div className="h-[200px]">
-                <Card key={image.id} imageUrl={image.urls.raw} description={image.alt_description} />
-            </div> */}
-
-            <figure class="h-3/6">
-            <Card key={image.id} imageUrl={image.urls.raw} description={image.alt_description} />
-            <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">Image caption</figcaption>
-            </figure>
-
+							<figure className="flex justify-center items-center sizeDetails">
+								<Card className={className} key={image.id} imageUrl={imageUrl} description={image.alt_description} />
+							</figure>
             </>
         )
     }

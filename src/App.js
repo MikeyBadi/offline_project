@@ -2,6 +2,7 @@
 import Homepage from './pages/Homepage'
 import Detail from './pages/Detail'
 import Layout from './layouts/Layout';
+import './App.css'
 import 'flowbite';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
