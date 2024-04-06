@@ -1,27 +1,31 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import ImageList from "../components/ImageList";
+import Pagination from "../components/Pagination";
 
 export default function Homepage() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [dataImg, setDataImg] = useState(null);
   const [isLoading, setLoading] = useState(true);
+  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     async function fetchData() {
       try {
         const accessKey = process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
         const response = await axios.get(
-          "https://api.unsplash.com/search/photos?page=1&per_page=20&query=amg",
+          `https://api.unsplash.com/search/photos?page=${currentPage}&per_page=20&query=amg`,
           {
             headers: {
               Authorization: `Client-ID ${accessKey}`,
             },
           }
         );
-        console.log(response.data);
-        setDataImg(response.data.results);
+        const fullData = response.data;
+        setDataImg(fullData.results);
+        setTotalPages(fullData.total_pages);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -29,8 +33,11 @@ export default function Homepage() {
       }
     }
     fetchData();
-  }, []);
-
+  }, [currentPage]);
+  
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 	function renderSpinner(){
 		return(
 			<div className="text-center">
@@ -44,14 +51,26 @@ export default function Homepage() {
 			</div>
 		)
 	}
+  
 
-  return (
-    <>
-      <div className="">
-        <h1> HOMEPAGE </h1>
-        <button onClick={() => navigate("/detail/1")}>Detail</button>
-        {!isLoading && dataImg ? <ImageList dataImg={dataImg} /> : null}
-      </div>
-    </>
+return (
+    <div>
+      <h1>Homepage</h1>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+          <ImageList dataImg={dataImg} />
+          <div className="flex justify-center items-center m-6">
+
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+            </div>
+        </>
+      )}
+    </div>
   );
 }
