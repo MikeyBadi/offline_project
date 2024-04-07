@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+# Guida all'esecuzione dell'applicazione locale
+Benvenuto alla guida per eseguire l'applicazione localmente! Segui i passaggi di seguito per iniziare a utilizzare l'app e goderti la ricerca e la gestione delle immagini da Unsplash.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Prerequisiti**
 
-## Available Scripts
+Prima di iniziare, assicurati di avere installato Node.js e npm sul tuo sistema. Puoi scaricare e installare Node.js dal sito ufficiale di Node.js.
 
-In the project directory, you can run:
+### Passaggi per l'esecuzione dell'applicazione
+Clona il repository: Inizia clonando il repository dell'applicazione sul tuo computer. Puoi farlo eseguendo il seguente comando nella tua interfaccia della riga di comando:
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+`git clone <URL_del_repository>`
 
-### `npm test`
+Accedi alla directory dell'applicazione: Una volta clonato il repository, accedi alla directory dell'applicazione tramite il comando:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`cd nome_della_cartella_dell'applicazione`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Installazione delle dipendenze:** 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Prima di eseguire l'applicazione, è necessario installare tutte le dipendenze. Puoi farlo eseguendo il seguente comando:
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+`npm install`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Creazione del file .env:** 
+Assicurati di creare un file .env nella radice dell'applicazione. All'interno di questo file, inserisci la tua chiave di accesso Unsplash come segue:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Crea il tuo file **_.env_**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+**REACT_APP_UNSPLASH_ACCESS_KEY=TuaChiaveUnsplash**
+Sostituisci TuaChiaveUnsplash con la tua chiave di accesso Unsplash.
 
-## Learn More
+#### **Esecuzione dell'applicazione:** 
+Una volta completati i passaggi precedenti, puoi avviare l'applicazione eseguendo il seguente comando:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`npm start`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Visualizzazione dell'applicazione:** 
 
-### Code Splitting
+Dopo aver avviato l'applicazione, aprilo nel tuo browser preferito visitando l'indirizzo <http://localhost:3000/>.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Utilizzo dell'applicazione
+- **Ricerca di immagini:** Per cercare immagini, inserisci il termine di ricerca nella barra di ricerca in alto a destra e premi il tasto Invio.
 
-### Analyzing the Bundle Size
+- **Aggiunta ai preferiti:** Puoi aggiungere un'immagine ai preferiti sia dalla visualizzazione totale che dalla visualizzazione dettagliata facendo clic sull'icona del cuore.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **Commentare le immagini:** Per commentare un'immagine, visualizzala in modalità dettagliata e scorri verso il basso fino alla sezione dei commenti. Puoi inserire il tuo commento nell'apposito campo e premere Invio.ù
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+link dell'app <
