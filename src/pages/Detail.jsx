@@ -1,5 +1,5 @@
-import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Card from "../components/ImageCard";
 import CommentForm from "../components/CommentForm";
 
@@ -12,16 +12,15 @@ export default function Detail() {
   const className = window.matchMedia("(max-width: 768px)").matches ? "w-screen" : "h-screen";
 
   useEffect(() => {
-    // Recupera lo stato dei preferiti dal localStorage
     const favoriteImages = JSON.parse(localStorage.getItem("favoriteImages")) || {};
     setIsFavorite(favoriteImages[image.id] || false);
   }, [image.id]);
 
   const handleFavoriteToggle = () => {
     setIsFavorite((prevIsFavorite) => {
-      const newFavoriteImages = { ...JSON.parse(localStorage.getItem("favoriteImages")) }; // Copia lo stato corrente
-      newFavoriteImages[image.id] = !prevIsFavorite; // Aggiorna lo stato dell'immagine corrente utilizzando l'id
-      localStorage.setItem("favoriteImages", JSON.stringify(newFavoriteImages)); // Salva lo stato aggiornato nel localStorage
+      const newFavoriteImages = { ...JSON.parse(localStorage.getItem("favoriteImages")) };
+      newFavoriteImages[image.id] = !prevIsFavorite;
+      localStorage.setItem("favoriteImages", JSON.stringify(newFavoriteImages));
       return !prevIsFavorite;
     });
   };
@@ -33,7 +32,7 @@ export default function Detail() {
       <figure className="flex justify-center items-center sizeDetails">
         <Card className={className} key={image.id} imageUrl={imageUrl} description={image.alt_description} onFavoriteToggle={handleFavoriteToggle} isFavorite={isFavorite} />
       </figure>
-      <CommentForm />
+      <CommentForm imageId={image.id} />
     </>
-  )
+  );
 }

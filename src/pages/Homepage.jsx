@@ -14,27 +14,27 @@ export default function Homepage() {
   const [currentPage, setCurrentPage] = useState(1);
   const accessKey = process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
 
-
   useEffect(() => {
     async function fetchData() {
       try {
         let apiUrl = "";
         
-        // Controlla se l'URL corrente è http://localhost:3000/
+        // Controlla se l'URL corrente è la homepage e non c'è una query di ricerca
         if (window.location.pathname === "/" && searchQuery.trim() === "") {
           apiUrl = `https://api.unsplash.com/photos/random/?count=20`;
         } else {
-          // Se l'URL non è la homepage e la query non è vuota, gestisci la logica della ricerca
+          // Altrimenti, se c'è una query di ricerca, gestisci la logica di ricerca
           apiUrl = `https://api.unsplash.com/search/photos?page=${currentPage}&per_page=20&query=${searchQuery}`;
         }
   
-      const response = await axios.get(apiUrl, {
-        headers: {
-          Authorization: `Client-ID ${accessKey}`
-        }})
+        const response = await axios.get(apiUrl, {
+          headers: {
+            Authorization: `Client-ID ${accessKey}`
+          }
+        });
         const fullData = response.data;
   
-        // Imposta i dati in base alla logica della ricerca o dei risultati casuali
+        // Imposta i dati in base alla logica di ricerca o ai risultati casuali
         if (searchQuery.trim() === "") {
           setDataImg(fullData);
         } else {
@@ -51,11 +51,7 @@ export default function Homepage() {
     fetchData();
   }, [currentPage, searchQuery, accessKey]);
   
-  
-  
-  
-  
-
+  // Funzione per gestire il cambio di pagina
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -63,21 +59,17 @@ export default function Homepage() {
   return (
     <div>
       <h1>Homepage</h1>
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
+      {/* Visualizza un messaggio di caricamento se i dati non sono ancora stati caricati */}
+        {/* Se i dati sono stati caricati, mostra l'elenco delle immagini e la paginazione */}
         <>
-          <ImageList dataImg={dataImg} />
-          <div className="flex justify-center items-center m-6">
+          <ImageList dataImg={dataImg} /><div className="flex justify-center items-center m-6">
             <Pagination
               currentPage={currentPage}
               totalPages={totalPages}
               onPageChange={handlePageChange}
-              searchQuery={searchQuery}
-            />
+              searchQuery={searchQuery} />
           </div>
         </>
-      )}
     </div>
   );
 }

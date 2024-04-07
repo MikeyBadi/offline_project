@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
 export default function Card({ imageUrl, description, onClick, onFavoriteToggle, isFavorite, className }) {
+  // Funzione per gestire il toggle dei preferiti
   const handleFavoriteToggle = (event) => {
     event.stopPropagation(); // Evita la propagazione dell'evento click sull'immagine
     onFavoriteToggle(); // Chiamata alla funzione di toggle del preferito
@@ -8,12 +9,16 @@ export default function Card({ imageUrl, description, onClick, onFavoriteToggle,
 
   return (
     <div className="w-full flex justify-center items-center sizeDetails">
+      {/* Contenitore dell'immagine */}
       <div className="relative">
+        {/* Immagine */}
         <img className={`object-cover rounded-lg ${className}`} src={imageUrl} alt={description} onClick={onClick} />
+        {/* Bottone per il toggle dei preferiti */}
         <button
           className="absolute top-2 right-2 bg-white rounded-full p-2 shadow-md"
           onClick={handleFavoriteToggle}
         >
+          {/* Icona a forma di cuore */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className={`h-6 w-6 ${isFavorite ? "text-red-500" : "text-gray-400"}`}
@@ -21,6 +26,7 @@ export default function Card({ imageUrl, description, onClick, onFavoriteToggle,
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
+            {/* Path dell'icona del cuore */}
             {isFavorite ? (
               <path
                 strokeLinecap="round"

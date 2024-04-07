@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from "react";
 
-export default function CommentForm() {
+export default function CommentForm({ imageId }) {
+  // Stato per memorizzare i commenti
   const [comments, setComments] = useState([]);
+  // Stato per memorizzare il nuovo commento inserito dall'utente
   const [newComment, setNewComment] = useState("");
+  // Stato per gestire la visualizzazione completa dei commenti
   const [showFullComment, setShowFullComment] = useState(false);
 
+  // Effetto per caricare i commenti dal localStorage al caricamento della pagina
   useEffect(() => {
-    const storedComments = JSON.parse(localStorage.getItem("comments"));
-    if (storedComments) {
-      setComments(storedComments);
-    }
-  }, []);
+    // Recupera i commenti dal localStorage utilizzando l'ID dell'immagine come chiave
+    const storedComments = JSON.parse(localStorage.getItem(`comments_${imageId}`)) || [];
+    setComments(storedComments);
+  }, [imageId]);
 
+  // Funzione per gestire il cambiamento nel campo di inserimento del commento
   const handleCommentChange = (event) => {
     setNewComment(event.target.value);
   };
 
+  // Funzione per ottenere la data e l'ora correnti
   const getCurrentDateTime = () => {
     const now = new Date();
     const date = now.toLocaleDateString();
@@ -23,37 +28,44 @@ export default function CommentForm() {
     return `${date} ${time}`;
   };
 
+  // Funzione per gestire l'invio di un commento
   const handlePostComment = (event) => {
     event.preventDefault();
     if (newComment.trim() !== "") {
       const dateTime = getCurrentDateTime();
+      // Aggiunge il nuovo commento alla lista dei commenti
       const updatedComments = [{ text: newComment, author: "You", dateTime }, ...comments];
       setComments(updatedComments);
-      localStorage.setItem("comments", JSON.stringify(updatedComments));
-      setNewComment("");
+      // Salva i commenti aggiornati nel localStorage utilizzando l'ID dell'immagine come chiave
+      localStorage.setItem(`comments_${imageId}`, JSON.stringify(updatedComments));
+      setNewComment(""); // Resetta il campo di inserimento del commento
     }
   };
 
+  // Funzione per gestire il toggle per visualizzare l'intero commento
   const handleToggleFullComment = () => {
     setShowFullComment(!showFullComment);
   };
 
   return (
     <>
-    <div className="flex justify-center items-center">
-      <div className="mt-6 w-3/6 ">
-        {comments.map((comment, index) => (
-          <div key={index} className="bg-gray-200 p-4 rounded-md mb-2 shadow-md ">
-            <p className={`text-gray-800 dark:text-gray-200 ${comment.text.split(" ").length > 50 && !showFullComment ? "text-blue-600 cursor-pointer" : ""}`}>
-              <strong>{comment.author}</strong>: <br></br>{comment.text.split(" ").slice(0, 50).join(" ")} {comment.text.split(" ").length > 50 && !showFullComment && <span className="text-blue-600" onClick={handleToggleFullComment}>...<strong> Leggi tutto</strong></span>}
-              {comment.text.split(" ").length > 50 && showFullComment && <span>{comment.text.split(" ").slice(50).join(" ")} <span className="text-blue-600" onClick={handleToggleFullComment}><strong>Nascondi</strong></span></span>}
-              <br />
-              <small className="text-gray-500">{comment.dateTime}</small>
-            </p>
-          </div>
-        ))}
+      {/* Visualizzazione dei commenti */}
+      <div className="flex justify-center items-center">
+        <div className="mt-6 w-3/6">
+          {comments.map((comment, index) => (
+            <div key={index} className="bg-gray-200 p-4 rounded-md mb-2 shadow-md">
+              {/* Visualizzazione del commento con possibilità di visualizzare l'intero commento */}
+              <p className={`text-gray-800 dark:text-gray-200 ${comment.text.split(" ").length > 50 && !showFullComment ? "text-blue-600 cursor-pointer" : ""}`}>
+                <strong>{comment.author}</strong>: <br></br>{comment.text.split(" ").slice(0, 50).join(" ")} {comment.text.split(" ").length > 50 && !showFullComment && <span className="text-blue-600" onClick={handleToggleFullComment}>...<strong> Leggi tutto</strong></span>}
+                {comment.text.split(" ").length > 50 && showFullComment && <span>{comment.text.split(" ").slice(50).join(" ")} <span className="text-blue-600" onClick={handleToggleFullComment}><strong>Nascondi</strong></span></span>}
+                <br />
+                <small className="text-gray-500">{comment.dateTime}</small>
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+      {/* Form per l'inserimento di un nuovo commento */}
       <form onSubmit={handlePostComment} className="mt-6 flex justify-center items-center">
         <div className="w-4/6 mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
           <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
@@ -76,10 +88,10 @@ export default function CommentForm() {
               Post comment
             </button>
           </div>
+          {/* Messaggio sulle linee guida della community */}
           <p className="m-2 text-xs text-gray-500 dark:text-gray-400">Remember, contributions to this topic should follow our <a href="" className="text-blue-600 dark:text-blue-500 hover:underline">Community Guidelines</a>.</p>
         </div>
       </form>
-
     </>
   );
 }
